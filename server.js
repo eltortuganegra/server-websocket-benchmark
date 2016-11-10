@@ -1,23 +1,28 @@
 var app = require('express')();
 var http = require('http').Server(app);
-var io = require('socket.io')(http);
+var io = require('socket.io')(http, {transports: ['websocket', 'flashsocket', 'polling']});
+var port = process.argv[2] || 3000;
+var identifier = process.argv[3] || 'default server';
+
 var amountConnectedUsers = 0;
+
 app.get('/', function(req, res){
     res.send('<h1>Hello world</h1>');
 });
 
-io.on('connection', function(socket){
-    console.log('a user connected');
+io.on('connection', function(socket) {
+    console.log('[server ' + identifier + ']  user connected');
     amountConnectedUsers++;
-    console.log('Total connected users: ' + amountConnectedUsers);
+    console.log('[server ' + identifier + '] Total connected users: ' + amountConnectedUsers);
 
-    socket.on('disconnect', function(){
+    socket.on('disconnect', function() {
         console.log('user disconnected');
-        amountConnectedUsers++;
-        console.log('Total connected users: ' + amountConnectedUsers);
+        amountConnectedUsers--;
+        console.log('[server ' + identifier + '] Total connected users: ' + amountConnectedUsers);
     });
 });
 
-http.listen(3000, function(){
-    console.log('listening on *:3000');
+http.listen(port, function(){
+    console.log('listening on *:' + port);
 });
+

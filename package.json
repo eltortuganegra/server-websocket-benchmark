@@ -1,0 +1,11 @@
+{
+  "name": "server-websocket-benchmark",
+  "version": "0.0.1",
+  "description": "Server Websocket Benchmark",
+  "dependencies": {
+    "express": "^4.10.2",
+    "socket.io": "^1.5.1",
+    "socket.io-client": "1.5.1",
+    "async": "2.1.2"
+  }
+}
