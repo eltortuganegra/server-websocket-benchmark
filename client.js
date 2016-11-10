@@ -5,7 +5,7 @@ var clientIdentifier = process.argv[4] || 'default client';
 
 var Client = function (host, port, clientIdentifier) {
     console.log('User connecting (' + clientIdentifier + '):  ' + host + ':' + port);
-    var socket = require('socket.io-client')(host + ':' + port);
+    var socket = require('socket.io-client')(host + ':' + port, {transports: ['websocket']});
     console.log('User connecting (' + clientIdentifier + ') ...  after socket' );
 
     socket.on('connect', function(){
