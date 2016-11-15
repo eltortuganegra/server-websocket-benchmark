@@ -24,8 +24,8 @@ for(var serverNumber = 0; serverNumber < totalServers; serverNumber++) {
     console.log('Connecting to server (' + serverNumber + ') port: ' + port);
     async.each(clientIdentifiers, function(clientIdentifier) {
         // clients[clientIdentifier] = fork('client.js', [host, port, clientIdentifier] );
-        console.log('Client: ' + clientIdentifier);
-        clients[getServerAndUserIdentifier(serverNumber, clientIdentifier)] = Client(host, port, port + '-' + clientIdentifier);
+        console.log('Client identifier (' + clientIdentifier + ') '  );
+        clients[getServerAndClientIdentifier(serverNumber, clientIdentifier)] = Client(host, port, getServerAndClientIdentifier(serverNumber, clientIdentifier));
     }, function(err){
         console.log('UPSSS! Error!');
     });
@@ -45,7 +45,7 @@ function isHAProxyPort(defaultHAProxyPort, port) {
     return port === defaultHAProxyPort;
 }
 
-function getServerAndUserIdentifier(server, userIdentifier) {
+function getServerAndClientIdentifier(server, clientIdentifier) {
 
-    return server + '-' + userIdentifier;
+    return server + '-' + clientIdentifier;
 }
