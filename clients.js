@@ -2,7 +2,7 @@ var fork = require('child_process').fork;
 var async = require('async');
 var amountConcurrentUsers = process.argv[2] || 200;
 var host = process.argv[3] || 'http://localhost';
-var initialPort = process.argv[4] || 3000;
+var initialPort = getInitialPort();
 var totalServers = process.argv[5] || 50;
 var Client = require('./client');
 var defaultHAProxyPort = 80;
@@ -31,6 +31,14 @@ for(var j = 0; j < totalServers; j++) {
     });
 }
 
+function getInitialPort() {
+    if(process.argv[4]) {
+
+        return parseInt(process.argv[4]);
+    }
+
+    return 3000;
+}
 
 function isHAProxyPort(defaultHAProxyPort, port) {
 
