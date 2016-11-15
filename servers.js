@@ -1,7 +1,7 @@
 var fork = require('child_process').fork;
 var async = require('async');
 var amountConcurrentServers = process.argv[2] || 50;
-var port = process.argv[4] || 3000;
+var port = initialPortServer();
 var servers = [];
 var path = __dirname;
 
@@ -18,3 +18,12 @@ process.on('exit', function() {
         servers[i].kill();
     }
 });
+
+function initialPortServer() {
+    if(process.argv[4]) {
+
+        return parseInt(process.argv[4]);
+    }
+
+    return 3000;
+}
