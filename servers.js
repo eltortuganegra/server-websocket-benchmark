@@ -20,9 +20,9 @@ process.on('exit', function() {
 });
 
 function initialPortServer() {
-    if(process.argv[4]) {
+    if(process.argv[3]) {
 
-        return parseInt(process.argv[4]);
+        return parseInt(process.argv[3]);
     }
 
     return 3000;
