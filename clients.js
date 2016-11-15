@@ -20,7 +20,7 @@ console.log('Host: ' + host);
 console.log('Initial port: ' + initialPort);
 
 for(var j = 0; j < totalServers; j++) {
-    var port =  (isHAProxyPort(defaultHAProxyPort, port)) ? defaultHAProxyPort : initialPort + j;
+    var port =  (isHAProxyPort(defaultHAProxyPort, initialPort)) ? defaultHAProxyPort : initialPort + j;
     console.log('Connecting to port: ' + port);
     async.each(clientIdentifiers, function(clientIdentifier) {
         // clients[clientIdentifier] = fork('client.js', [host, port, clientIdentifier] );
