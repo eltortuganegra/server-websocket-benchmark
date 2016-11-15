@@ -5,6 +5,7 @@ var host = process.argv[3] || 'http://localhost';
 var initialPort = process.argv[4] || 3000;
 var totalServers = process.argv[5] || 50;
 var Client = require('./client');
+var defaultHAProxyPort = 80;
 
 var clientIdentifiers = [];
 var clients = [];
@@ -19,8 +20,8 @@ console.log('Host: ' + host);
 console.log('Initial port: ' + initialPort);
 
 for(var j = 0; j < totalServers; j++) {
-    var port = initialPort + j;
-    console.log('connecting to port: ' + port);
+    var port =  (isHAProxyPort(defaultHAProxyPort, port)) ? defaultHAProxyPort : initialPort + j;
+    console.log('Connecting to port: ' + port);
     async.each(clientIdentifiers, function(clientIdentifier) {
         // clients[clientIdentifier] = fork('client.js', [host, port, clientIdentifier] );
         console.log('Client: ' + clientIdentifier);
@@ -31,3 +32,7 @@ for(var j = 0; j < totalServers; j++) {
 }
 
 
+function isHAProxyPort(defaultHAProxyPort, port) {
+
+    return port === defaultHAProxyPort;
+}
