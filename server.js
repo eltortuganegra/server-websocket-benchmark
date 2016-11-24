@@ -6,6 +6,8 @@ var identifier = process.argv[3] || 'default server';
 
 var amountConnectedUsers = 0;
 
+initializeGarbageCollection();
+
 app.get('/', function(req, res){
     res.send('<h1>Hello world</h1>');
 });
@@ -26,3 +28,10 @@ http.listen(port, function(){
     console.log('listening on *:' + port);
 });
 
+function initializeGarbageCollection() {
+    var thirtySecondsInMilliseconds = 30000;
+    setInterval(function(){
+        global.gc();
+        console.log('GC done')
+    }, thirtySecondsInMilliseconds);
+}
