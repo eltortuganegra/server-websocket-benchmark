@@ -29,9 +29,9 @@ http.listen(port, function(){
 });
 
 function initializeGarbageCollection() {
-    var thirtySecondsInMilliseconds = 60000;
+    var sixtySecondsInMilliseconds = 60000;
     setInterval(function(){
         global.gc();
         console.log('[server ' + identifier + '] GC done')
-    }, thirtySecondsInMilliseconds);
+    }, sixtySecondsInMilliseconds);
 }
