@@ -9,7 +9,7 @@ var amountConnectedUsers = 0;
 initializeGarbageCollection();
 
 app.get('/', function(req, res){
-    res.send('<h1>Hello world</h1>');
+    res.send('<h1>[server ' + identifier + '] Hello world</h1>');
 });
 
 io.on('connection', function(socket) {
@@ -29,9 +29,9 @@ http.listen(port, function(){
 });
 
 function initializeGarbageCollection() {
-    var thirtySecondsInMilliseconds = 30000;
+    var thirtySecondsInMilliseconds = 60000;
     setInterval(function(){
         global.gc();
-        console.log('GC done')
+        console.log('[server ' + identifier + '] GC done')
     }, thirtySecondsInMilliseconds);
 }
