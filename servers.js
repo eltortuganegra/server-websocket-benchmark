@@ -1,5 +1,4 @@
 var fork = require('child_process').fork;
-var async = require('async');
 var amountConcurrentServers = process.argv[2] || 50;
 var port = initialPortServer();
 var servers = [];
