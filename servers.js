@@ -11,25 +11,28 @@ for(var i = 0; i < amountConcurrentServers; i++) {
     console.log('Creating server: ' + serverIdentifier + ' - ' + portForServer + ' - ' + serverIdentifier);
     servers[i] = fork( path +'/server.js', [portForServer, serverIdentifier], {execArgv: [disableAutomaticGarbageOption]});
     servers[i].on('exit', function() {
-        console.log('[benchmark][app][' + i +'][event] EXIT');
+        console.log('[benchmark][app][' + i +'][event] exit');
     });
     servers[i].on('close', function() {
-        console.log('[benchmark][app][' + i +'][event] EXIT');
+        console.log('[benchmark][app][' + i +'][event] close');
     });
     servers[i].on('disconnect', function() {
-        console.log('[benchmark][app][' + i +'][event] EXIT');
+        console.log('[benchmark][app][' + i +'][event] disconnect');
     });
     servers[i].on('error', function() {
-        console.log('[benchmark][app][' + i +'][event] EXIT');
+        console.log('[benchmark][app][' + i +'][event] error');
     });
     servers[i].on('uncaughtException', function() {
-        console.log('[benchmark][app][' + i +'][event] EXIT');
+        console.log('[benchmark][app][' + i +'][event] uncaughtException');
     });
     servers[i].on('SIGTERM', function() {
-        console.log('[benchmark][app][' + i +'][event] EXIT');
+        console.log('[benchmark][app][' + i +'][event] SIGTERM');
     });
     servers[i].on('SIGINT', function() {
-        console.log('[benchmark][app][' + i +'][event] EXIT');
+        console.log('[benchmark][app][' + i +'][event] SIGINT');
+    });
+    servers[i].stdout.on('data', function(data) {
+        console.log(data.toString());
     });
 }
 
