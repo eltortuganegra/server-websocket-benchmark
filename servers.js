@@ -31,9 +31,6 @@ for(var i = 0; i < amountConcurrentServers; i++) {
     servers[i].on('SIGINT', function() {
         console.log('[benchmark][app][' + i +'][event] SIGINT');
     });
-    servers[i].stdout.on('data', function(data) {
-        console.log(data.toString());
-    });
 }
 
 process.on('exit', function() {
